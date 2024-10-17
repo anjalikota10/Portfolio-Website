@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        SCANNER_HOME= tool 'sonar'
+    }
+
     stages {
         stage('Git Checkout') {
             steps {
@@ -8,4 +12,23 @@ pipeline {
             }
         }
     }
+
+    stage('Trivy FS Scan') {
+            steps {
+                sh 'trivy fs --format table -o fs-report.html .'
+            }
+        }
+
+    stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {  
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=TaskMaster \
+                    -Dsonar.projectName=TaskMaster -Dsonar.java.binaries=target '''
+                    
+                 }    
+            }
+        }
+
+
 }
+
