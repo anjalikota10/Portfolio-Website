@@ -4,6 +4,6 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/anjalikota10/tetris-game.git'
+                git branch: 'main', url: 'https://github.com/anjalikota10/Portfolio-Website.git'
             }
         }
