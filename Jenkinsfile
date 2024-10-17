@@ -7,3 +7,5 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/anjalikota10/Portfolio-Website.git'
             }
         }
+    }
+}
